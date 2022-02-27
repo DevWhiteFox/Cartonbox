@@ -24,12 +24,17 @@ public final class Cartonbox extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-
+        super.onEnable();
+        saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
+        SplashConsole.sendSplashLines("onEnable"); //Find "onEnable" message to print in console
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        super.onDisable();
+        SplashConsole.sendSplashLines("onDisable"); //Find "onDisable" message to print in console
     }
 
     /**

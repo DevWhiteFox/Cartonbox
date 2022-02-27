@@ -10,7 +10,7 @@ public class SplashConsole {
 
     public static void initialize() {
         splashConfig = new ConfigManager("splashMessage.yml");
-        splashConfig.saveDefaultConfig();
+        //splashConfig.saveDefaultConfig();
         splashConfig.reloadConfig();
     }
 
