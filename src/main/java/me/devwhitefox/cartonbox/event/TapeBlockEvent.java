@@ -1,4 +1,4 @@
-package me.devwhitefox.cartonbox.feature;
+package me.devwhitefox.cartonbox.event;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

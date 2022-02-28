@@ -1,4 +1,4 @@
-package me.devwhitefox.cartonbox.commands;
+package me.devwhitefox.cartonbox.commands.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

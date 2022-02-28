@@ -1,5 +1,6 @@
-package me.devwhitefox.cartonbox.commands;
+package me.devwhitefox.cartonbox.commands.utils;
 
+import me.devwhitefox.cartonbox.commands.GiveScotch;
 import me.devwhitefox.cartonbox.console.MessageConsole;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -18,6 +19,7 @@ public class CoreCommand implements CommandExecutor, TabExecutor {
 
     public CoreCommand() {
         collector = new SubCommandCollector();
+        collector.registerSubCommand("give", new GiveScotch());
     }
 
     @Override
@@ -49,9 +51,11 @@ public class CoreCommand implements CommandExecutor, TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String @NotNull [] args) {
         if(args.length == 1) {
             return collector.getAllSubCommand();
-        }else if(args.length > 1){
-            return collector.getSubCommand(args[1]).getDataParameter();
         }
+        if(args.length > 1){
+            return collector.getSubCommand(args[0]).tabList();
+        }
+
         return new ArrayList<>();
     }
 }
