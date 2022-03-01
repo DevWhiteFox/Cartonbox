@@ -4,9 +4,9 @@ main: me.devwhitefox.cartonbox.Cartonbox
 api-version: 1.18
 authors: [ DevWhiteFox ]
 description: This plugin promises to take a block with an inventory and carry it around and then place it elsewhere.
+load: POSTWORLD
 
 commands:
   cartonbox:
     description: The main command
     usage: /<command>
-    permission: cartonbox.use

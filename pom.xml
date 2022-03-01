@@ -36,15 +36,37 @@
                 <version>3.2.4</version>
                 <executions>
                     <execution>
+                        <id>shade</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <artifactSet>
+                        <excludes>
+                            <exclude>com.github.tr7zw.item-nbt-api:item-nbt-api-plugin</exclude>
+                            <exclude>com.github.tr7zw.item-nbt-api:nbt-injector</exclude>
+                            <exclude>de.tr7zw:functional-annotations</exclude>
+                        </excludes>
+                    </artifactSet>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/MANIFEST.MF</exclude>
+                                <exclude>LICENSE</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                    <relocations>
+                        <relocation>
+                            <pattern>de.tr7zw.changeme.nbtapi</pattern>
+                            <shadedPattern>YOUR PACKGE WHERE THE API SHOULD END UP</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
@@ -64,6 +86,12 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <!-- CodeMC -->
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+            <layout>default</layout>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -79,9 +107,9 @@
             <version>22.0.0</version>
         </dependency>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>nbt-data-api</artifactId>
+            <version>2.9.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

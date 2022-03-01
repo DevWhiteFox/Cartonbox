@@ -5,7 +5,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 import org.jetbrains.annotations.NotNull;
 
 public class RunTask <Z>{
-    private static final Cartonbox plugin = Cartonbox.instance; //Change with other plugin class (if case of migration)
+    private static final Cartonbox plugin = Cartonbox.getInstance(); //Change with other plugin class (if case of migration)
 
     public @NotNull BukkitScheduler getScheduler(){
         return plugin.getServer().getScheduler();

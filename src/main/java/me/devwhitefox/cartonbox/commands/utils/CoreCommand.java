@@ -2,7 +2,6 @@ package me.devwhitefox.cartonbox.commands.utils;
 
 import me.devwhitefox.cartonbox.commands.GiveScotch;
 import me.devwhitefox.cartonbox.console.MessageConsole;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,13 +19,14 @@ public class CoreCommand implements CommandExecutor, TabExecutor {
     public CoreCommand() {
         collector = new SubCommandCollector();
         collector.registerSubCommand("give", new GiveScotch());
+        collector.registerSubCommand("reload", new ReloadCommand());
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
 
         if(args.length == 0) {
-            sender.sendMessage(ChatColor.GOLD + "No command executed");
+            sender.sendMessage("§6No command executed");
             return true;
         }
 
@@ -36,14 +36,14 @@ public class CoreCommand implements CommandExecutor, TabExecutor {
             if(sender instanceof Player || !sub.wantOnlyPlayer()) {
                 if (sender.hasPermission(sub.getPermission())) {
                     sub.doCommand(sender, command, label, args);
-                    return true;
                 }
+            }else {
+                new MessageConsole().sendWarning("Not usable by console");
             }
-            new MessageConsole().sendWarning("Not usable by console");
             return true;
         }
 
-        sender.sendMessage(ChatColor.GOLD + "Wrong sub command executed");
+        sender.sendMessage("§6Wrong sub command executed");
         return true;
     }
 

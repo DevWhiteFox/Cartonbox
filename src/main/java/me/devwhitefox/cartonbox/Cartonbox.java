@@ -2,8 +2,10 @@ package me.devwhitefox.cartonbox;
 
 import me.devwhitefox.cartonbox.commands.utils.CoreCommand;
 import me.devwhitefox.cartonbox.console.SplashConsole;
+import me.devwhitefox.cartonbox.item.CardboardBoxItem;
 import me.devwhitefox.cartonbox.listener.BoxTheBlock;
 import me.devwhitefox.cartonbox.item.ScotchItem;
+import me.devwhitefox.cartonbox.listener.UnboxCardboard;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,15 +18,13 @@ public final class Cartonbox extends JavaPlugin {
     /**
      * The constant instance of plugin.
      */
-    public static Cartonbox instance;
+    private static Cartonbox instance;
 
     /**
      * Instantiates the plugin instance and print in console welcome message.
      */
     public Cartonbox() {
         Cartonbox.instance = this;
-        SplashConsole.initialize();
-        ScotchItem.initialize();
     }
 
     @Override
@@ -32,12 +32,12 @@ public final class Cartonbox extends JavaPlugin {
         // Plugin startup logic
         super.onEnable();
         saveDefaultConfig();
-        getConfig().options().copyDefaults(true);
         SplashConsole.sendSplashLines("onEnable"); //Find "onEnable" message to print in console
 
         Objects.requireNonNull(this.getCommand("cartonbox")).setExecutor(new CoreCommand());
 
         registerEvents(new BoxTheBlock());
+        registerEvents(new UnboxCardboard());
     }
 
     @Override
@@ -54,5 +54,9 @@ public final class Cartonbox extends JavaPlugin {
      */
     public void registerEvents(Listener listener){
         getServer().getPluginManager().registerEvents(listener, this);
+    }
+    
+    public static Cartonbox getInstance() {
+        return instance;
     }
 }

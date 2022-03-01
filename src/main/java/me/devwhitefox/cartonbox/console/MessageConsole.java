@@ -7,7 +7,7 @@ import java.util.logging.Level;
 public class MessageConsole {
 
     private void sendLog(Level level, String message, Exception e){
-        Cartonbox.instance.getLogger().log(level, message, e);
+        Cartonbox.getInstance().getLogger().log(level, message, e);
     }
 
     private void sendLog(Level level, String message){

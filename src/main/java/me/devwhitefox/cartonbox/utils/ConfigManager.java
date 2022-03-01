@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class ConfigManager {
-    private static final Cartonbox plugin = Cartonbox.instance;
+    private static final Cartonbox plugin = Cartonbox.getInstance();
     private FileConfiguration fileConfiguration = null;
     private File configFile = null;
     private final String nameFile;
