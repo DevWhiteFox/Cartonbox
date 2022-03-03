@@ -6,6 +6,7 @@ import me.devwhitefox.cartonbox.item.CardboardBoxItem;
 import me.devwhitefox.cartonbox.listener.BoxTheBlock;
 import me.devwhitefox.cartonbox.item.ScotchItem;
 import me.devwhitefox.cartonbox.listener.UnboxCardboard;
+import me.devwhitefox.cartonbox.utils.ConfigManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,10 +22,18 @@ public final class Cartonbox extends JavaPlugin {
     private static Cartonbox instance;
 
     /**
+    Config options
+     */
+    private static ConfigManager options;
+
+
+    /**
      * Instantiates the plugin instance and print in console welcome message.
      */
     public Cartonbox() {
         Cartonbox.instance = this;
+        options = new ConfigManager("options.yml");
+        options.saveDefaultConfig();
     }
 
     @Override
@@ -58,5 +67,9 @@ public final class Cartonbox extends JavaPlugin {
     
     public static Cartonbox getInstance() {
         return instance;
+    }
+
+    public static ConfigManager getOptions() {
+        return options;
     }
 }

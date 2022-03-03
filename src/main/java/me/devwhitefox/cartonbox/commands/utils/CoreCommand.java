@@ -1,6 +1,7 @@
 package me.devwhitefox.cartonbox.commands.utils;
 
 import me.devwhitefox.cartonbox.commands.GiveScotch;
+import me.devwhitefox.cartonbox.commands.ReloadCommand;
 import me.devwhitefox.cartonbox.console.MessageConsole;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,6 +37,8 @@ public class CoreCommand implements CommandExecutor, TabExecutor {
             if(sender instanceof Player || !sub.wantOnlyPlayer()) {
                 if (sender.hasPermission(sub.getPermission())) {
                     sub.doCommand(sender, command, label, args);
+                }else{
+                    sender.sendMessage("§cYou don't have permission to run this command");
                 }
             }else {
                 new MessageConsole().sendWarning("Not usable by console");

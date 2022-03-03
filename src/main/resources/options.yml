@@ -1,0 +1,2 @@
+rules:
+  matryoshka: false #If true allow to pack a block with inside a cardboard box

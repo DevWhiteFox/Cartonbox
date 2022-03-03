@@ -1,5 +1,6 @@
-package me.devwhitefox.cartonbox.commands.utils;
+package me.devwhitefox.cartonbox.commands;
 
+import me.devwhitefox.cartonbox.commands.utils.ISubCommand;
 import me.devwhitefox.cartonbox.utils.ReloadPlugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
