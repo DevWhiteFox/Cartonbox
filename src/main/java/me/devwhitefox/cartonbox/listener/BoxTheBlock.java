@@ -4,17 +4,22 @@ import me.devwhitefox.cartonbox.Cartonbox;
 import me.devwhitefox.cartonbox.event.TapeBlockEvent;
 import me.devwhitefox.cartonbox.item.CardboardBoxItem;
 import me.devwhitefox.cartonbox.item.ScotchItem;
-import me.devwhitefox.cartonbox.utils.ConfigManager;
 import me.devwhitefox.cartonbox.utils.NameItemFormatter;
 import me.devwhitefox.cartonbox.utils.PersistentData;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Nameable;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Container;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,7 +54,7 @@ public class BoxTheBlock implements org.bukkit.event.Listener {
 
         BlockState state = block.getState();
 
-        if(!Cartonbox.getOptions().getConfig().getBoolean("rules.matryoshka") && thereIsInsideABox(state)){
+        if(!Cartonbox.getOptions().getConfig().getBoolean("rules.matryoshka") && thereIsBoxInsideABlock(state)){
             event.setCancelled(true);
             return;
         }
@@ -87,11 +92,42 @@ public class BoxTheBlock implements org.bukkit.event.Listener {
         return finalName;
     }
 
-    private boolean thereIsInsideABox(BlockState state){
+    private boolean thereIsBoxInsideABlock(BlockState state){
         org.bukkit.block.Container container = (org.bukkit.block.Container) state;
         PersistentData itemData = new PersistentData(Cartonbox.getInstance(), PersistentDataType.STRING);
 
         for(ItemStack item : container.getInventory().getStorageContents()) {
+            if(item == null) continue;
+
+            //If inside a shulker
+            if(checkBoxInShulker(item)){
+                return true;
+            }
+
+            //If inside block container
+            itemData.from(item.getItemMeta());
+            if(itemData.has("blockdata")){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean checkBoxInShulker(@NotNull final ItemStack item){
+        if(item.getItemMeta() instanceof BlockStateMeta){
+            BlockStateMeta im = (BlockStateMeta)item.getItemMeta();
+            if(im.getBlockState() instanceof ShulkerBox){
+                return thereIsBoxInsideAShulker((ShulkerBox) im.getBlockState());
+            }
+        }
+        return false;
+    }
+
+    private boolean thereIsBoxInsideAShulker(@NotNull final ShulkerBox shulker){
+        PersistentData itemData = new PersistentData(Cartonbox.getInstance(), PersistentDataType.STRING);
+
+        for(ItemStack item : shulker.getInventory().getStorageContents()) {
             if(item == null) continue;
 
             itemData.from(item.getItemMeta());

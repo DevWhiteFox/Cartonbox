@@ -41,7 +41,7 @@ public final class Cartonbox extends JavaPlugin {
         // Plugin startup logic
         super.onEnable();
         saveDefaultConfig();
-        SplashConsole.sendSplashLines("onEnable"); //Find "onEnable" message to print in console
+        SplashConsole.sendSplashLines("plugin.onEnable"); //Find "onEnable" message to print in console
 
         Objects.requireNonNull(this.getCommand("cartonbox")).setExecutor(new CoreCommand());
 
@@ -53,7 +53,7 @@ public final class Cartonbox extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         super.onDisable();
-        SplashConsole.sendSplashLines("onDisable"); //Find "onDisable" message to print in console
+        SplashConsole.sendSplashLines("plugin.onDisable"); //Find "onDisable" message to print in console
     }
 
     /**
